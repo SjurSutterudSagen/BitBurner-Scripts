@@ -47,7 +47,13 @@ export async function main(ns) {
 
     const threads = Math.floor((targetServerMaxRam - targetServerUsedRam) / scriptRamUsage);
 
-    ns.tprint(`Launching script ${hackScript} on ${serverToHack} with ${threads} and the following arguments: ${serverToHack}`);
+    if (threads > 0) {
+        ns.tprint(`Launching script ${hackScript} on ${serverToHack} with ${threads} and the following arguments: ${serverToHack}`);
 
-    exec(hackScript, serverToHack, threads, serverToHack);
+        exec(hackScript, serverToHack, threads, serverToHack);
+        return;
+    }
+
+    ns.tprint(`The target server (${serverToHack} can not support any threads of the script (${hackScript}))`);
+    
 }
