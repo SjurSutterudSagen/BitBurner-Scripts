@@ -27,7 +27,7 @@ export async function main(ns) {
 
     //  Check if the script for gaining access exists on the current server, copy it to it if it does not.
     if (!ns.fileExists(nukeScript)) {
-        await scp(nukeScript, "home", serverRunningScript);
+        await ns.scp(nukeScript, "home", serverRunningScript);
     }
 
     //  Try to gain root access
