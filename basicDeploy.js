@@ -34,7 +34,7 @@ export async function main(ns) {
     if (!rootAccess) {
         ns.exec(nukeScript, serverRunningScript, 1, serverToHack);
 
-        sleep(1000)
+        ns.sleep(1000)
         let rootAccess = ns.hasRootAccess(serverToHack);
         if (!rootAccess) {
             ns.tprint(`Aborting deploy to ${serverToHack} because of no root access.`);
