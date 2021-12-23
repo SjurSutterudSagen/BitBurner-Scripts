@@ -4,8 +4,9 @@
 
 export async function main(ns) {
     const args = ns.flags([['help', false]]);
-    const moneyThreshold = ns.getServerMaxMoney(serverToHack) * 0.75;
-    const securityThreshold = ns.getServerMinSecurityLevel(serverToHack) + 5;
+    const targetServerToHack = args._[0];
+    const moneyThreshold = ns.getServerMaxMoney(targetServerToHack) * 0.75;
+    const securityThreshold = ns.getServerMinSecurityLevel(targetServerToHack) + 5;
 
     //  If missing argument or help
     if (args.help || false) {
@@ -17,12 +18,12 @@ export async function main(ns) {
     }
 
     while (true) {
-        if (ns.getServerSecurityLevel(serverToHack) > securityThreshold) {
-            await ns.weaken(serverToHack);
-        } else if (ns.getServerMoneyAvailable(serverToHack) < moneyThreshold) {
-            await ns.grow(serverToHack);
+        if (ns.getServerSecurityLevel(targetServerToHack) > securityThreshold) {
+            await ns.weaken(targetServerToHack);
+        } else if (ns.getServerMoneyAvailable(targetServerToHack) < moneyThreshold) {
+            await ns.grow(targetServerToHack);
         } else {
-            await ns.hack(serverToHack);
+            await ns.hack(targetServerToHack);
         }
     }
 }
