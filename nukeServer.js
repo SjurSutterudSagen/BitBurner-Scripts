@@ -38,7 +38,7 @@ export async function main(ns, serverToNuke) {
         }
     }
 
-    if (requiredPorts <= hackToolsUsed && !hasRootAccess) {
+    if (requiredPorts <= hackToolsUsed && !rootAccess) {
         ns.tprint('Trying to nuke: ' + targetServer)
         ns.nuke(targetServer);
         rootAccess = ns.hasRootAccess(targetServer);
@@ -46,7 +46,9 @@ export async function main(ns, serverToNuke) {
 
     if (!rootAccess) {
         ns.tprint('Could not gain root access to: ' + targetServer);
+        return;
     }
 
-    return rootAccess;
+    ns.tprint('Gained root access to: ' + targetServer);
+    return;
 }
