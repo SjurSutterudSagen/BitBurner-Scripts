@@ -33,7 +33,17 @@ export async function main(ns) {
     //  Try to gain root access
     if (!rootAccess) {
         ns.exec(nukeScript, serverRunningScript, 1, serverToHack);
+
+        sleep(1000)
+        let rootAccess = ns.hasRootAccess(serverToHack);
+        if (!rootAccess) {
+            ns.tprint(`Aborting deploy to ${serverToHack} because of no root access.`);
+
+            return;
+        }
     }
+
+
 
     //  "deploy" a hacking script, with max threads 
     //  Check if the hacking script exists on the target server, copy it to it if it does not.
