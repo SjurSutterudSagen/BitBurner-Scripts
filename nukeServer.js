@@ -12,27 +12,27 @@ export async function main(ns, serverToNuke) {
     if (!rootAccess && requiredPorts !== 0) {
         ns.tprint('Trying to open ports on: ' + targetServer);
 
-        if (ns.fileExists('BruteSSH.exe', home)) {
+        if (ns.fileExists('BruteSSH.exe', "home")) {
             ns.brutessh(targetServer);
             hackToolsUsed++;
         }
 
-        if (ns.fileExists('FTPCrack.exe', home)) {
+        if (ns.fileExists('FTPCrack.exe', "home")) {
             ns.ftpcrack(targetServer);
             hackToolsUsed++;
         }
 
-        if (ns.fileExists('relaySMTP.exe', home)) {
+        if (ns.fileExists('relaySMTP.exe', "home")) {
             ns.relaysmtp(targetServer);
             hackToolsUsed++;
         }
 
-        if (ns.fileExists('HTTPWorm.exe', home)) {
+        if (ns.fileExists('HTTPWorm.exe', "home")) {
             ns.httpworm(targetServer);
             hackToolsUsed++;
         }
         
-        if (ns.fileExists('SQLInject.exe', home)) {
+        if (ns.fileExists('SQLInject.exe', "home")) {
             ns.sqlinject(targetServer);
             hackToolsUsed++;
         }

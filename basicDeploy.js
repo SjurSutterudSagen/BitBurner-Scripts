@@ -31,10 +31,11 @@ export async function main(ns) {
     }
 
     //  Try to gain root access
+    //  TODO: Change this to import instead, threading issues currently
     if (!rootAccess) {
         ns.exec(nukeScript, serverRunningScript, 1, serverToHack);
 
-        ns.sleep(20000)
+        ns.sleep(100000)
         let rootAccess = ns.hasRootAccess(serverToHack);
         if (!rootAccess) {
             ns.tprint(`Aborting deploy to ${serverToHack} because of no root access.`);
