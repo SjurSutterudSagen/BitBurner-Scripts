@@ -8,7 +8,7 @@ export async function main(ns) {
     const serverRunningScript = ns.getHostname();
     const nukeScript = "nukeServer.js";
     const hackScript = "basicHack.js"
-    let rootAccess = ns.hasRootAcces(serverToHack);
+    let rootAccess = ns.hasRootAccess(serverToHack);
 
     //  If missing argument or help
     if (args.help || !serverToHack) {
@@ -20,25 +20,25 @@ export async function main(ns) {
     }
 
     //  Check that target server exists
-    if (!serverExists(serverToHack)) {
+    if (!ns.serverExists(serverToHack)) {
         ns.tprint("Target Server does not exist. Aborting basicHack.js");
         return;
     }
 
     //  Check if the script for gaining access exists on the current server, copy it to it if it does not.
-    if (!fileExists(nukeScript)) {
+    if (!ns.fileExists(nukeScript)) {
         await scp(nukeScript, "home", serverRunningScript);
     }
 
     //  Try to gain root access
     if (!rootAccess) {
-        exec(nukeScript, serverRunningScript, 1, serverToHack);
+        ns.exec(nukeScript, serverRunningScript, 1, serverToHack);
     }
 
     //  "deploy" a hacking script, with max threads 
     //  Check if the hacking script exists on the target server, copy it to it if it does not.
-    if (!fileExists(hackScript, serverToHack)) {
-        await scp(hackScript, "home", serverToHack);
+    if (!ns.fileExists(hackScript, serverToHack)) {
+        await ns.scp(hackScript, "home", serverToHack);
     }
 
     const targetServerMaxRam = ns.getServerMaxRam(serverToHack);
@@ -50,7 +50,7 @@ export async function main(ns) {
     if (threads > 0) {
         ns.tprint(`Launching script ${hackScript} on ${serverToHack} with ${threads} and the following arguments: ${serverToHack}`);
 
-        exec(hackScript, serverToHack, threads, serverToHack);
+        ns.exec(hackScript, serverToHack, threads, serverToHack);
         return;
     }
 
